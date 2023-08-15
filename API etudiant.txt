@@ -1,0 +1,84 @@
+openapi: 3.0.3
+info:
+  title: API Étudiants STD22107
+  description: API pour gérer les informations des étudiants.
+  version: 1.0.0
+servers:
+  - url: https://api.STD22107.com/v1
+tags:
+  - name: student
+    description: Opérations liées aux étudiants
+paths:
+  /students:
+    get:
+      tags:
+        - student
+      summary: Récupérer la liste des étudiants
+      operationId: getStudents
+      responses:
+        '200':
+          description: Liste des étudiants récupérée avec succès
+          content:
+            application/json:
+              example: |
+                [
+                  {
+                    "id": 1,
+                    "nom": "Rojo",
+                    "prenom": "Tiana",
+                    "date_naissance": "2005-06-01"
+                  },
+                  {
+                    "id": 2,
+                    "nom": "Toky",
+                    "prenom": "Henry",
+                    "date_naissance": "2001-02-15"
+                  },
+                  {
+                    "id": 3,
+                    "nom": "Marc",
+                    "prenom": "R",
+                    "date_naissance": "2004-03-12"
+                  }
+                ]
+    post:
+      tags:
+        - student
+      summary: Ajouter un nouvel étudiant
+      operationId: addStudent
+      requestBody:
+        description: Informations de l'étudiant à ajouter
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+      responses:
+        '201':
+          description: Étudiant ajouté avec succès
+        '400':
+          description: Requête invalide
+
+components:
+  schemas:
+    Student:
+      type: object
+      properties:
+        nom:
+          type: string
+        prenom:
+          type: string
+        date_naissance:
+          type: string
+          format: date
+      required:
+        - nom
+        - prenom
+        - date_naissance
+
+  examples:
+    StudentExample:
+      value:
+        nom: Rojo
+        prenom: Tiana
+        date_naissance: 2005-06-01

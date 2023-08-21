@@ -1,0 +1,198 @@
+openapi: 3.0.0
+info:
+  title: Teacher and Student API
+  description: API to manage teacher and student information at HEI- [STD22107]
+  version: 1.0.0
+  contact:
+    email: hei.rojo.3@gmail.com
+servers:
+  - url: https://STD22107.hei.school/api/v3
+tags:
+  - name: Teachers
+    description: Operations related to teachers
+  - name: Students
+    description: Operations related to students
+
+paths:
+  /teachers:
+    get:
+      summary: Get a list of all teachers
+      tags: [Teachers]
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example: |
+                [{"firstName": "Toky", "lastName": "Ramarozaka", "courses": [{"courseName": "Algo", "duration": "2 mois", "courseCode": "Prog"}]},
+                {"firstName": "Ryan", "lastName": "R", "courses": [{"courseName": "api", "duration": "1 mois", "courseCode": "API"}]}]
+    post:
+      summary: Create a new teacher
+      tags: [Teachers]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                courses:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      courseName:
+                        type: string
+                      duration:
+                        type: string
+                      courseCode:
+                        type: string
+      responses:
+        '201':
+          description: Teacher created successfully
+  /teachers/{teacherLastName}:
+    get:
+      summary: Get teacher by LastName
+      tags: [Teachers]
+      parameters:
+        - name: teacherLastName
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+    put:
+      summary: Update teacher by LastName
+      tags: [Teachers]
+      parameters:
+        - name: teacherLastName
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                courses:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      courseName:
+                        type: string
+                      duration:
+                        type: string
+                      courseCode:
+                        type: string
+      responses:
+        '200':
+          description: Teacher updated successfully
+    delete:
+      summary: Delete teacher by LastName
+      tags: [Teachers]
+      parameters:
+        - name: teacherLastName
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Teacher deleted successfully
+  /students:
+    get:
+      summary: Get a list of all students
+      tags: [Students]
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example: |
+                [{"firstName": "Rojo", "lastName": "Tiana", "birthDate": "2023-04-20"}]
+    post:
+      summary: Create a new student
+      tags: [Students]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                birthDate:
+                  type: string
+                  format: date
+      responses:
+        '201':
+          description: Student created successfully
+  /students/{studentFirstName}:
+    get:
+      summary: Get student by FirstName
+      tags: [Students]
+      parameters:
+        - name: studentFirstName
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+    put:
+      summary: Update student by FirstName
+      tags: [Students]
+      parameters:
+        - name: studentFirstName
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                birthDate:
+                  type: string
+                  format: date
+      responses:
+        '200':
+          description: Student updated successfully
+    delete:
+      summary: Delete student by FirstName
+      tags: [Students]
+      parameters:
+        - name: studentFirstName
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Student deleted successfully
+          
